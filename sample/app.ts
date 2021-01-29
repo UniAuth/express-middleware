@@ -23,10 +23,6 @@ const uniAuth = new Auth([
   },
 ]);
 
-app.get('/', (req, res) => {
-  res.json({ alive: true });
-});
-
 app.get('/login', uniAuth.authenticate('server1'));
 app.get('/callback', uniAuth.callback('server1'), (req, res) => {
   res.json({ message: 'logged in' });
