@@ -16,6 +16,10 @@ const uniAuth = new Auth([
       console.log('>>>>>', profile);
       next();
     },
+    endpoint: {
+      auth: 'account/o/login',
+      profile: 'account/o/access',
+    },
   },
 ]);
 

@@ -12,10 +12,10 @@ export interface Config {
   redirectUri: string;
 
   /** option method to set custom endpoints if using modified server */
-  endpoint?: {
+  endpoint: {
     auth: string;
     profile: string;
   };
 
-  processor?(profile: any, next: NextFunction): any;
+  processor(profile: any, next: NextFunction): any;
 }
