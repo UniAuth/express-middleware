@@ -1,7 +1,10 @@
+import * as https from 'https';
+
 import { NextFunction, Request, Response } from 'express';
 
 import { AuthenticationParams } from './interface/authenticate.interface';
 import { Config } from './interface/config.interface';
+import { getProfileData } from './minions/post.minion';
 
 class UniAuth {
   private configs: Array<Config> = [];
@@ -56,5 +59,18 @@ class UniAuth {
       next();
     };
   }
+
+  public callback(name: string, params?: AuthenticationParams) {
+    const config = this.getConfigByName(name);
+
+    /** return an express middleware */
+    return async function (req: Request, res: Response, next: NextFunction) {
+      const accessToken = req.query.access_token as string;
+      const profileDetails = await getProfileData(config, accessToken);
+      console.log(profileDetails);
+      res.json(profileDetails);
+    };
+  }
 }
+
 export default UniAuth;

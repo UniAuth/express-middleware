@@ -6,7 +6,6 @@ export interface Config {
 
   url: string;
 
-  /** application configs */
   clientId: string;
   clientSecret: string;
   redirectUri: string;
