@@ -1,0 +1,12 @@
+name: "Ensure Build and Test"
+on: [push]
+
+jobs:
+  build:
+    name: Ensure Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
