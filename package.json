@@ -1,14 +1,27 @@
 {
-  "name": "express-middleware",
+  "name": "@uniauth/express-middleware",
   "version": "1.0.0",
   "main": "dist/app.js",
+  "description": "express middleware to integrate uniauth based OAuth servers into nodejs applications",
+  "keywords": [
+    "uniauth",
+    "express",
+    "auth",
+    "middleware",
+    "oauth"
+  ],
   "repository": "git@github.com:UniAuth/express-middleware.git",
+  "homepage": "https://github.com/uniauth",
   "scripts": {
     "build": "tsc --outDir ./dist src/app.ts",
     "start:dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/app.ts"
   },
-  "author": "Yash Kumar Verma <yk.verma2000@gmail.com>",
-  "license": "MIT",
+  "author": "Yash Kumar Verma <yk.verma2000@gmail.com> (https://yashkumarverma.github.io/)",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/UniAuth/express-middleware/issues",
+    "email": "yk.verma2000@gmail.com"
+  },
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
