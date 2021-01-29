@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', uniAuth.authenticate('server1'));
-app.get('/callback', (req, res) => {
+app.get('/callback', uniAuth.callback('server1'), (req, res) => {
   res.json(req.query);
 });
 
