@@ -44,9 +44,9 @@ class UniAuth {
   }
 
   /**
-   * Express Middleware
+   * Express Middleware for initiating auth flow
    */
-  public authenticate(name: string, params?: AuthenticationParams) {
+  public authenticate(name: string) {
     const config = this.getConfigByName(name);
 
     /** return an express middleware */
