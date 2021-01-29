@@ -1,0 +1,12 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "nodemon --watch 'app.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' app.ts"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

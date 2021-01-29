@@ -1,10 +1,10 @@
 {
   "name": "express-middleware",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "repository": "git@github.com:UniAuth/express-middleware.git",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --outDir ./dist src/app.ts",
     "start:dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/app.ts"
   },
   "author": "Yash Kumar Verma <yk.verma2000@gmail.com>",

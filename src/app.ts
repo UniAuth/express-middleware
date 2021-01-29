@@ -57,3 +57,4 @@ class UniAuth {
     };
   }
 }
+export default UniAuth;
