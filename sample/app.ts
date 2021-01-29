@@ -12,6 +12,10 @@ const uniAuth = new Auth([
     clientId: '600ee6ec924dd75267384cb4',
     clientSecret: '986727d0-c253-4adb-a9b8-c233a89cdb25',
     redirectUri: 'http://localhost:3000/callback',
+    processor: async (profile, next) => {
+      console.log('>>>>>', profile);
+      next();
+    },
   },
 ]);
 
@@ -21,7 +25,7 @@ app.get('/', (req, res) => {
 
 app.get('/login', uniAuth.authenticate('server1'));
 app.get('/callback', uniAuth.callback('server1'), (req, res) => {
-  res.json(req.query);
+  res.json({ message: 'logged in' });
 });
 
 app.listen(3000, () => console.log('listening on port 3000'));

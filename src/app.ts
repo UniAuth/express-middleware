@@ -23,6 +23,15 @@ class UniAuth {
       throw new Error('name and url required');
     }
 
+    /** by default, log the profile and move to next layer */
+    if (!config.processor) {
+      config.processor = (profile, next) => {
+        console.log('profile >', profile);
+        next();
+      };
+    }
+
+    /** define default endpoints */
     if (!config.endpoint) {
       config.endpoint = {
         auth: 'account/o/login',
@@ -67,8 +76,7 @@ class UniAuth {
     return async function (req: Request, res: Response, next: NextFunction) {
       const accessToken = req.query.access_token as string;
       const profileDetails = await getProfileData(config, accessToken);
-      console.log(profileDetails);
-      res.json(profileDetails);
+      await config.processor(profileDetails, next);
     };
   }
 }

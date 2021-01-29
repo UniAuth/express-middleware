@@ -1,3 +1,4 @@
+import { NextFunction } from 'express';
 /**
  * interface to define config of middleware
  */
@@ -15,4 +16,6 @@ export interface Config {
     auth: string;
     profile: string;
   };
+
+  processor?(profile: any, next: NextFunction): any;
 }
