@@ -82,3 +82,4 @@ class UniAuth {
 }
 
 export default UniAuth;
+module.exports = UniAuth;
