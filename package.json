@@ -1,6 +1,6 @@
 {
   "name": "@uniauth/express-middleware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/app.js",
   "description": "express middleware to integrate uniauth based OAuth servers into nodejs applications",
   "keywords": [
