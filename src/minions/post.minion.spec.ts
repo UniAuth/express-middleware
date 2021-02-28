@@ -40,4 +40,10 @@ describe('post.minion export', () => {
   it('should be a function', () => {
     expect(typeof getProfileData).toBe('function');
   });
+
+  it('should throw error if access_token is undefined', () => {
+    expect(getProfileData).rejects.toEqual({
+      error: 'access_token undefined',
+    });
+  });
 });
