@@ -62,7 +62,7 @@ class UniAuth {
     const config = this.getConfigByName(name);
 
     /** return an express middleware */
-    return function (req: Request, res: Response, next: NextFunction) {
+    return function(req: Request, res: Response, next: NextFunction) {
       const loginUrl = `${config.url}/${config.endpoint.auth}?client_id=${config.clientId}&redirect_uri=${config.redirectUri}`;
       res.redirect(loginUrl);
       next();
@@ -73,7 +73,7 @@ class UniAuth {
     const config = this.getConfigByName(name);
 
     /** return an express middleware */
-    return async function (req: Request, res: Response, next: NextFunction) {
+    return async function(req: Request, res: Response, next: NextFunction) {
       const accessToken = req.query.access_token as string;
       const profileDetails = await getProfileData(config, accessToken);
       await config.processor(profileDetails, next);
@@ -82,4 +82,4 @@ class UniAuth {
 }
 
 export default UniAuth;
-module.exports = UniAuth;
+// module.exports = UniAuth;
