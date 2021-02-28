@@ -42,8 +42,6 @@ describe('post.minion export', () => {
   });
 
   it('should throw error if access_token is undefined', () => {
-    expect(getProfileData).rejects.toEqual({
-      error: 'access_token undefined',
-    });
+    expect(getProfileData).rejects.toThrow('access_token undefined');
   });
 });
