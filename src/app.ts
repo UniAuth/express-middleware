@@ -1,8 +1,9 @@
 import * as https from 'https';
 
 import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
 
-import { AuthenticationParams } from './interface/authenticate.interface';
+import { AuthenticationParams, User } from './interface/authenticate.interface';
 import { Config } from './interface/config.interface';
 import { getProfileData } from './minions/post.minion';
 
@@ -38,6 +39,11 @@ class UniAuth {
         profile: 'account/o/access',
       };
     }
+
+    /** if jwt configs are not provided, throw an error */
+    if (!config.jwtConfig.jwtSecret || !config.jwtConfig.jwtExpire) {
+      throw new Error('jwt secret and expire needs to be provided');
+    }
   }
 
   /**
@@ -62,7 +68,7 @@ class UniAuth {
     const config = this.getConfigByName(name);
 
     /** return an express middleware */
-    return function(req: Request, res: Response, next: NextFunction) {
+    return function (req: Request, res: Response, next: NextFunction) {
       const loginUrl = `${config.url}/${config.endpoint.auth}?client_id=${config.clientId}&redirect_uri=${config.redirectUri}`;
       res.redirect(loginUrl);
       next();
@@ -73,11 +79,35 @@ class UniAuth {
     const config = this.getConfigByName(name);
 
     /** return an express middleware */
-    return async function(req: Request, res: Response, next: NextFunction) {
+    return async (req: Request, res: Response, next: NextFunction) => {
       const accessToken = req.query.access_token as string;
       const profileDetails = await getProfileData(config, accessToken);
+      this.session(name, profileDetails);
       await config.processor(profileDetails, next);
     };
+  }
+
+  /** Express Middleware to append user details to req.cookies */
+  public session(name: string, user?: User) {
+    const config = this.getConfigByName(name);
+
+    if (user) {
+      /** return an express middleware */
+      return function (req: Request, res: Response, next: NextFunction) {
+        const id = user.registrationNumber;
+        // ! Error want to add the cookie property to all the req object
+        /** Signs a jwt token to request cookies based on the registration number of the user */
+        req.cookies = jwt.sign({ id }, config.jwtConfig.jwtSecret, {
+          expiresIn: config.jwtConfig.jwtExpire,
+        });
+        next();
+      };
+    } else {
+      /** return an express middleware */
+      return function (req: Request, res: Response, next: NextFunction) {
+        next();
+      };
+    }
   }
 }
 

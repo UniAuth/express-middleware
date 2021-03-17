@@ -17,5 +17,10 @@ export interface Config {
     profile: string;
   };
 
+  jwtConfig: {
+    jwtSecret: string;
+    jwtExpire: string;
+  };
+
   processor(profile: any, next: NextFunction): any;
 }
